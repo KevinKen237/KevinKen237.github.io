@@ -19,7 +19,8 @@ Une seule page :
 ## Technique
 
 - HTML, CSS et JavaScript simples, sans framework, sans jQuery, sans dépendance externe
-- Polices hébergées sur le site (Bricolage Grotesque, Inter, Caveat), aucun appel à un service tiers, aucun traceur
+- Polices hébergées sur le site (Bricolage Grotesque, Inter, Caveat)
+- Seul service tiers : l'assistant Botpress (chargé en différé)
 - Balises Open Graph pour l'aperçu LinkedIn (`assets/img/og-image.png`, 1200x630)
 - Accessibilité : lien d'évitement, focus visible, zoom autorisé, animations coupées si `prefers-reduced-motion`
 - Toutes les données du mini-jeu sont fictives
