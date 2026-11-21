@@ -40,4 +40,5 @@ assets/css/style.css
 assets/js/main.js
 assets/fonts/   polices woff2
 assets/img/     photo, favicon, image de partage
+assets/cv/      CV public (sans téléphone)
 ```
