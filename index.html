@@ -1,0 +1,291 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Kevin Kenang · Data Scientist, risque de crédit et Open Banking</title>
+  <meta name="description" content="Data Scientist spécialisé en risque de crédit et en données bancaires (Open Banking). Je fais des modèles utiles : ceux qui tournent en production et sur lesquels on prend de vraies décisions.">
+  <link rel="canonical" href="https://kevinken237.github.io/">
+  <meta name="theme-color" content="#FFF8EE">
+
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="fr_FR">
+  <meta property="og:title" content="Kevin Kenang · Data Scientist, risque de crédit et Open Banking">
+  <meta property="og:description" content="Je ne fais pas des modèles intelligents. Je fais des modèles utiles.">
+  <meta property="og:url" content="https://kevinken237.github.io/">
+  <meta property="og:image" content="https://kevinken237.github.io/assets/img/og-image.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Kevin Kenang, Data Scientist">
+  <meta name="twitter:card" content="summary_large_image">
+
+  <link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
+  <link rel="preload" href="assets/fonts/bricolage-grotesque.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="assets/fonts/inter.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+  <a class="skip" href="#contenu">Aller au contenu</a>
+
+  <header class="topbar">
+    <div class="wrap topbar__inner">
+      <a class="brand" href="#top" aria-label="Kevin Kenang, retour en haut">
+        <span class="brand__dot" aria-hidden="true">K</span> Kevin Kenang
+      </a>
+      <nav aria-label="Navigation principale">
+        <ul class="nav">
+          <li><a href="#jeu">Le jeu</a></li>
+          <li><a href="#aujourdhui">Aujourd'hui</a></li>
+          <li><a href="#histoires">Histoires</a></li>
+          <li><a href="#parcours">Parcours</a></li>
+          <li><a class="nav__cta" href="#contact">Me contacter</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main id="contenu">
+
+    <!-- Accroche -->
+    <section class="hero" id="top">
+      <div class="wrap hero__grid">
+        <div class="hero__text">
+          <p class="eyebrow">Data Scientist · risque de crédit &amp; Open Banking</p>
+          <h1>Bonjour,<br>moi c'est Kevin.</h1>
+          <p class="lead">
+            Je ne fais pas des modèles <em>intelligents</em>.
+            Je fais des modèles <mark>utiles</mark> : ceux qui tournent en production
+            et sur lesquels on prend de vraies décisions.
+          </p>
+          <div class="actions">
+            <a class="btn btn--primary" href="#contact">Discutons</a>
+            <a class="btn btn--ghost" href="https://www.linkedin.com/in/kevin-kenang/" target="_blank" rel="noopener">Mon LinkedIn</a>
+          </div>
+        </div>
+        <figure class="hero__photo">
+          <picture>
+            <source srcset="assets/img/kevin.webp" type="image/webp">
+            <img src="assets/img/kevin.jpg" width="720" height="816" alt="Portrait de Kevin Kenang, souriant, en veste camel" fetchpriority="high">
+          </picture>
+          <span class="note note--photo" aria-hidden="true">c'est moi !</span>
+          <svg class="note-arrow" viewBox="0 0 80 60" aria-hidden="true"><path d="M6 8 C 30 4, 58 14, 66 46" /><path d="M56 40 L 66 48 L 72 36" /></svg>
+        </figure>
+      </div>
+    </section>
+
+    <!-- Le jeu -->
+    <section class="section section--game" id="jeu" aria-labelledby="jeu-titre">
+      <div class="wrap">
+        <p class="kicker">Mon métier en 10 secondes</p>
+        <h2 id="jeu-titre">À vous de jouer : <span class="hl">vous êtes la banque.</span></h2>
+        <p class="intro">
+          100 personnes demandent un crédit. Un score les a rangées, de la plus sûre à la plus risquée.
+          Certaines ne rembourseront pas. Où placez-vous la barre ?
+        </p>
+
+        <div class="game">
+          <div class="game__board">
+            <div class="game__axis" aria-hidden="true"><span>plus sûr</span><span>plus risqué</span></div>
+            <div class="grid" id="people" role="img" aria-label="Grille de 100 demandeurs de crédit, classés du plus sûr au plus risqué"></div>
+            <ul class="legend">
+              <li><i class="dot dot--ok"></i> accepté, rembourse</li>
+              <li><i class="dot dot--bad"></i> accepté, impayé</li>
+              <li><i class="dot dot--lost"></i> refusé alors qu'il aurait remboursé</li>
+              <li><i class="dot dot--off"></i> refusé, à raison</li>
+            </ul>
+          </div>
+
+          <div class="game__panel">
+            <label class="slider-label" for="seuil">J'accepte les <output id="seuil-out" for="seuil">60</output> premiers dossiers</label>
+            <input type="range" id="seuil" min="0" max="100" step="1" value="60">
+
+            <div class="kpis">
+              <div class="kpi kpi--ok"><span class="kpi__n" id="k-ok">0</span><span class="kpi__l">bons clients acceptés</span></div>
+              <div class="kpi kpi--bad"><span class="kpi__n" id="k-bad">0</span><span class="kpi__l">impayés acceptés</span></div>
+              <div class="kpi kpi--lost"><span class="kpi__n" id="k-lost">0</span><span class="kpi__l">bons clients refusés</span></div>
+            </div>
+
+            <div class="verdict" aria-live="polite">
+              <p class="verdict__score">Votre bilan : <strong id="k-score">0</strong> points <span class="verdict__best">(meilleur réglage possible : <span id="k-best">0</span>)</span></p>
+              <p class="verdict__msg" id="k-msg"></p>
+            </div>
+            <p class="fineprint">Règle du jeu : +1 point par client qui rembourse, −4 par impayé. Données entièrement fictives, créées pour cette démo.</p>
+          </div>
+        </div>
+
+        <p class="punchline">
+          Refuser trop coûte du chiffre d'affaires. Accepter trop coûte des impayés.
+          <strong>Trouver le bon réglage, c'est mon quotidien.</strong>
+        </p>
+      </div>
+    </section>
+
+    <!-- Aujourd'hui -->
+    <section class="section" id="aujourdhui" aria-labelledby="auj-titre">
+      <div class="wrap">
+        <p class="kicker">Aujourd'hui</p>
+        <h2 id="auj-titre">Data Scientist dans une fintech de la donnée bancaire</h2>
+        <p class="intro">Mon terrain de jeu : les relevés bancaires, pour aider à décider qui peut emprunter, et combien.</p>
+
+        <div class="cards">
+          <article class="card">
+            <div class="card__icon card__icon--sun" aria-hidden="true">
+              <svg viewBox="0 0 32 32"><rect x="7" y="4" width="18" height="24" rx="3"/><path d="M11 11h10M11 16h10M11 21h6"/></svg>
+            </div>
+            <h3>Lire un relevé, ligne par ligne</h3>
+            <p>J'apprends aux machines à reconnaître chaque transaction : un salaire, un loyer, un crédit, une allocation. Dans plusieurs pays, et plusieurs langues.</p>
+            <p class="tags">Règles métier · machine learning</p>
+          </article>
+          <article class="card">
+            <div class="card__icon card__icon--coral" aria-hidden="true">
+              <svg viewBox="0 0 32 32"><path d="M5 25a11 11 0 0 1 22 0"/><path d="M16 25l6-8"/><circle cx="16" cy="25" r="2"/></svg>
+            </div>
+            <h3>Accepter plus, sans risquer plus</h3>
+            <p>Je construis des scores qui aident à dire oui à plus de clients, sans laisser filer les impayés. Du premier prototype jusqu'à la mise en production.</p>
+            <p class="tags">Python · scikit-learn · CatBoost</p>
+          </article>
+          <article class="card">
+            <div class="card__icon card__icon--green" aria-hidden="true">
+              <svg viewBox="0 0 32 32"><path d="M4 24l7-7 5 4 11-12"/><path d="M21 9h6v6"/></svg>
+            </div>
+            <h3>Suivre, expliquer, ajuster</h3>
+            <p>Un modèle en production, ça vit. Je suis ses performances et j'explique aux équipes ce qui bouge, et pourquoi.</p>
+            <p class="tags">MLflow · ZenML · suivi en production</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- Histoires -->
+    <section class="section section--stories" id="histoires" aria-labelledby="hist-titre">
+      <div class="wrap">
+        <p class="kicker">Ma façon de travailler</p>
+        <h2 id="hist-titre">Trois histoires vraies, plutôt qu'une liste de qualités</h2>
+
+        <div class="stories">
+          <article class="story">
+            <p class="story__tag">Histoire n°1 · l'équilibre risque / revenu</p>
+            <h3>On ne refuse pas tout un groupe sans preuve</h3>
+            <p>Un groupe de clients était écarté en bloc. En regardant de près, rien dans les données ne justifiait de le pénaliser. J'ai défendu qu'on l'évalue comme les autres : refuser sans raison, c'est perdre de bons clients.</p>
+            <p class="story__moral">Le risque se mesure. Il ne se suppose pas.</p>
+          </article>
+          <article class="story">
+            <p class="story__tag">Histoire n°2 · l'explicabilité</p>
+            <h3>Je préfère un chiffre plus bas que je peux défendre</h3>
+            <p>En changeant ma façon de tester un modèle, ses performances ont baissé. Mauvaise nouvelle ? Non : l'ancienne méthode le flattait, à cause d'un biais. Le nouveau chiffre était moins beau, mais il était vrai.</p>
+            <p class="story__moral">Un bon score, c'est d'abord un score honnête.</p>
+          </article>
+          <article class="story">
+            <p class="story__tag">Histoire n°3 · la collaboration métier</p>
+            <h3>En comité, je montre aussi ce qui dérive</h3>
+            <p>Quand je présente un modèle en comité de pilotage, je ne montre pas que ce qui marche. Je montre aussi ce qui bouge, avec son explication. C'est comme ça que les équipes métier me font confiance.</p>
+            <p class="story__moral">La confiance se gagne avec les mauvaises nouvelles aussi.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- Parcours -->
+    <section class="section" id="parcours" aria-labelledby="parc-titre">
+      <div class="wrap">
+        <p class="kicker">Avant</p>
+        <h2 id="parc-titre">Avant le crédit, déjà la même obsession : que ça serve</h2>
+
+        <article class="orange">
+          <div class="orange__head">
+            <h3>Orange France</h3>
+            <p class="orange__role">Data Scientist en alternance · Direction technique réseau · 2023-2025</p>
+          </div>
+          <div class="stats">
+            <div class="stat">
+              <span class="stat__n">75 %</span>
+              <p>des équipements réseau défectueux détectés, à partir des échanges entre techniciens et assistance, contre environ 10 % avec les règles d'avant.</p>
+            </div>
+            <div class="stat">
+              <span class="stat__n">−25 %</span>
+              <p>d'appels inutiles à l'assistance technique, grâce à un modèle prédictif qui anticipe les interventions difficiles.</p>
+            </div>
+          </div>
+          <p class="tags">Python · SQL (BigQuery) · Vertex AI · Dataiku · Streamlit</p>
+        </article>
+
+        <ol class="timeline">
+          <li>
+            <span class="timeline__when">2022-2023</span>
+            <div><h3>CREM, Université de Rennes · Data Analyst</h3>
+            <p>750 000 mesures de capteurs de mobilité nettoyées et fiabilisées, pour comprendre comment on se déplace en ville.</p></div>
+          </li>
+          <li>
+            <span class="timeline__when">2021-2022</span>
+            <div><h3>MTN Cameroun · Analyste données et statistiques</h3>
+            <p>Un tableau de bord Power BI (ventes, satisfaction, réabonnements) utilisé par la direction régionale, et des reportings automatisés.</p></div>
+          </li>
+          <li>
+            <span class="timeline__when">Formation</span>
+            <div><h3>Master MAS Data Science et IA &amp; Magistère Statistiques et Modélisation</h3>
+            <p>Double diplôme, Université Rennes 2 et Université de Rennes (2023-2025).</p></div>
+          </li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- À côté -->
+    <section class="section section--side" id="a-cote" aria-labelledby="cote-titre">
+      <div class="wrap">
+        <p class="kicker">À côté des modèles</p>
+        <h2 id="cote-titre">Quand je ne code pas, je bouge</h2>
+
+        <div class="hobbies">
+          <div class="hobby">
+            <svg viewBox="0 0 40 40" aria-hidden="true"><circle cx="17" cy="16" r="10"/><path d="M24 23l7 8"/><circle cx="32" cy="9" r="2.5" class="fill"/></svg>
+            <h3>Tennis de table</h3>
+            <p>Lire l'effet de la balle avant qu'elle arrive. Finalement, pas si loin de la data.</p>
+          </div>
+          <div class="hobby">
+            <svg viewBox="0 0 40 40" aria-hidden="true"><path d="M4 22c4-4 8-4 12 0s8 4 12 0 6-3 8-1"/><path d="M4 30c4-4 8-4 12 0s8 4 12 0 6-3 8-1"/><circle cx="24" cy="11" r="3.5"/></svg>
+            <h3>Natation</h3>
+            <p>Le seul endroit où aucune notification ne m'atteint. Parfait pour réfléchir.</p>
+          </div>
+          <div class="hobby">
+            <svg viewBox="0 0 40 40" aria-hidden="true"><path d="M10 8v16h18c3 0 4 2 4 4H8"/><path d="M6 33h28"/></svg>
+            <h3>Patinoire</h3>
+            <p>Je tombe moins qu'au début. Comme un bon modèle : on itère.</p>
+          </div>
+          <div class="hobby hobby--pushups">
+            <svg viewBox="0 0 40 40" aria-hidden="true"><circle cx="9" cy="17" r="3.5"/><path d="M12 20l22 4"/><path d="M15 21v8M34 24v5"/><path d="M4 30h34"/></svg>
+            <h3>Les pompes</h3>
+            <p>Une série tous les jours. La régularité bat l'intensité.</p>
+            <button type="button" class="pushup" id="pushup">Une pompe avec moi <span class="pushup__count" id="pushup-count" aria-live="polite">0</span></button>
+          </div>
+        </div>
+
+        <h3 class="side-title">Projets personnels</h3>
+        <ul class="projects">
+          <li><a href="https://github.com/KevinKen237/Data-Articles" target="_blank" rel="noopener">Data Articles</a> : une veille data automatisée (scraping, NLP, résumés par LLM, orchestration Airflow et Docker).</li>
+          <li><a href="https://github.com/KevinKen237/PowerBi_project/tree/main/projet%201" target="_blank" rel="noopener">Reconversion vers la data</a> : un tableau de bord Power BI tiré d'une enquête auprès de candidats.</li>
+          <li><a href="https://github.com/KevinKen237/Transport-rennais/tree/main/ProjetV" target="_blank" rel="noopener">Transports rennais</a> : une analyse géographique de la desserte en transports en commun.</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- Contact -->
+    <section class="section section--contact" id="contact" aria-labelledby="contact-titre">
+      <div class="wrap contact">
+        <h2 id="contact-titre">On en parle autour d'un café ?</h2>
+        <p>Un poste, une question, une envie d'échanger sur le scoring : écrivez-moi, je réponds vite.</p>
+        <div class="actions actions--center">
+          <a class="btn btn--primary" href="mailto:kevinkenang.pro@gmail.com">kevinkenang.pro@gmail.com</a>
+          <a class="btn btn--light" href="https://www.linkedin.com/in/kevin-kenang/" target="_blank" rel="noopener">LinkedIn</a>
+          <a class="btn btn--light" href="https://github.com/KevinKen237" target="_blank" rel="noopener">GitHub</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="wrap">© 2026 Kevin Kenang · Site fait main, sans template ni traceur.</div>
+  </footer>
+
+  <script src="assets/js/main.js" defer></script>
+</body>
+</html>
