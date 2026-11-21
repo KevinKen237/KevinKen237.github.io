@@ -135,7 +135,7 @@ input[type="range"]:focus-visible { outline: 3px solid var(--coral); outline-off
 .verdict__msg { margin-top: 6px; font-weight: 500; min-height: 3.3em; }
 .fineprint { font-size: .8rem; color: var(--muted); margin-top: 12px; }
 .punchline { margin: 44px auto 0; text-align: center; font-size: clamp(1.15rem, 2.2vw, 1.4rem); max-width: 46ch; }
-@media (max-width: 860px) { .game { grid-template-columns: 1fr; } }
+@media (max-width: 860px) { .game { grid-template-columns: 1fr; } .game__panel { order: -1; } }
 
 /* Cartes */
 .cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin-top: 40px; }
